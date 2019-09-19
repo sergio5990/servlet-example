@@ -4,9 +4,33 @@
                     http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.sergio5990/servlet-example</groupId>
-    <artifactId>servlet-example</artifactId>
+    <groupId>com.github.sergio5990.servlet.example</groupId>
+    <artifactId>root</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <modules>
+        <module>dao</module>
+        <module>service</module>
+        <module>web</module>
+        <module>model</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.28</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
 
 </project>
