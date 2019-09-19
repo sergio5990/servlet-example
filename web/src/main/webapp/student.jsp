@@ -25,7 +25,7 @@
 
 
 <c:if test="${authUser.role == 'PROFESSOR'}">
-    <h3>Добавить студента</h3>
+    <h3>Добавить студента </h3>
     <form action="${pageContext.request.contextPath}/student" method="post">
         <label for="firstName">имя</label>
         <input id="firstName" type="text" name="firstName"><br/>
