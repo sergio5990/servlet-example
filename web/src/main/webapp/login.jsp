@@ -6,6 +6,10 @@
     <label for="login">login</label>
     <input id="login" type="test" name="login"> <br/>
 
+
+
+
+
     <label for="password">password</label>
     <input id="password" type="password" name="password"><br/>
     <input type="submit">
