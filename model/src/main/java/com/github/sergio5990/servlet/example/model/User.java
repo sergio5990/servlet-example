@@ -1,18 +1,22 @@
 package com.github.sergio5990.servlet.example.model;
 
-import java.util.Set;
-
 public class User {
+    private Long id;
     private String firstName;
     private String lastName;
     private String phone;
     private String email;
 
-    public User(String firstName, String lastName, String phone, String email) {
+    public User(Long id, String firstName, String lastName, String phone, String email) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.email = email;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -29,9 +33,5 @@ public class User {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getId() {
-        return firstName + "_" + lastName;
     }
 }

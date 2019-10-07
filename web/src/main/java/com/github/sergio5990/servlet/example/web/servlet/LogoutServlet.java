@@ -1,6 +1,5 @@
 package com.github.sergio5990.servlet.example.web.servlet;
 
-import com.github.sergio5990.servlet.example.model.AuthUser;
 import com.github.sergio5990.servlet.example.service.SecurityService;
 import com.github.sergio5990.servlet.example.web.WebUtils;
 
@@ -17,7 +16,7 @@ public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest rq, HttpServletResponse rs) {
         rq.getSession().removeAttribute("authUser");
         rq.getSession().invalidate();
-        WebUtils.forword("login", rq, rs);
+        WebUtils.forward("login", rq, rs);
     }
 
 }
