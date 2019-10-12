@@ -1,45 +1,59 @@
 package com.github.sergio5990.servlet.example.dao.impl;
 
 import com.github.sergio5990.servlet.example.dao.AuthUserDao;
+import com.github.sergio5990.servlet.example.dao.DataSource;
 import com.github.sergio5990.servlet.example.model.AuthUser;
 import com.github.sergio5990.servlet.example.model.Role;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.*;
 
 public class DefaultAuthUserDao implements AuthUserDao {
-    Map<String, AuthUser> userByLogin;
 
-    public DefaultAuthUserDao() {
-        this.userByLogin = new HashMap<>();
-        this.userByLogin.putIfAbsent("admin",
-                new AuthUser("admin", "admin", Role.PROFESSOR, null));
-        this.userByLogin.putIfAbsent("user",
-                new AuthUser("user", "user", Role.STUDENT, null));
+    private static class SingletonHolder {
+        static final AuthUserDao HOLDER_INSTANCE = new DefaultAuthUserDao();
     }
 
-    private static volatile AuthUserDao instance;
-
     public static AuthUserDao getInstance() {
-        AuthUserDao localInstance = instance;
-        if (localInstance == null) {
-            synchronized (AuthUserDao.class) {
-                localInstance = instance;
-                if (localInstance == null) {
-                    instance = localInstance = new DefaultAuthUserDao();
-                }
-            }
-        }
-        return localInstance;
+        return DefaultAuthUserDao.SingletonHolder.HOLDER_INSTANCE;
     }
 
     @Override
     public AuthUser getByLogin(String login) {
-        return userByLogin.get(login);
+        try (Connection connection = DataSource.getInstance().getConnection();
+             PreparedStatement ps = connection.prepareStatement("select * from auth_user where login = ?")) {
+            ps.setString(1, login);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new AuthUser(
+                            rs.getLong("id"),
+                            rs.getString("login"),
+                            rs.getString("password"),
+                            Role.valueOf(rs.getString("role")),
+                            rs.getLong("user_id"));
+                } else {
+                    return null;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public void saveAuthUser(AuthUser user) {
-        userByLogin.putIfAbsent(user.getLogin(), user);
+    public long saveAuthUser(AuthUser user) {
+        final String sql = "insert into auth_user(login, password, role, user_id) values(?,?,?,?)";
+        try (Connection connection = DataSource.getInstance().getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, user.getLogin());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getRole().name());
+            ps.setLong(4, user.getUserId());
+            ps.executeUpdate();
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                return generatedKeys.getLong(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

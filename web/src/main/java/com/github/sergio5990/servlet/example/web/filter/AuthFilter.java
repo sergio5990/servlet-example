@@ -11,22 +11,13 @@ import java.io.IOException;
 @WebFilter("/student")
 public class AuthFilter implements Filter {
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
-
-    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest rq = (HttpServletRequest) servletRequest;
         Object authUser = rq.getSession().getAttribute("authUser");
         if (authUser == null) {
-            WebUtils.forword("login", rq, ((HttpServletResponse) servletResponse));
+            WebUtils.forward("login", rq, ((HttpServletResponse) servletResponse));
+            return;
         }
         filterChain.doFilter(rq, servletResponse);
-    }
-
-    @Override
-    public void destroy() {
-
     }
 }
