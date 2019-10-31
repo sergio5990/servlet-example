@@ -13,6 +13,8 @@
         <artifactId>root</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
+
+
     <dependencies>
         <dependency>
             <groupId>com.github.sergio5990.servlet.example</groupId>
@@ -25,9 +27,19 @@
             <version>8.0.17</version>
         </dependency>
         <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.5.4</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>${hibernate-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <version>${ehcache.version}</version>
         </dependency>
     </dependencies>
 

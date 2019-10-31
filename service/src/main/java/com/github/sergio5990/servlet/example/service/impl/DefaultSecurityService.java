@@ -1,7 +1,6 @@
 package com.github.sergio5990.servlet.example.service.impl;
 
 import com.github.sergio5990.servlet.example.dao.AuthUserDao;
-import com.github.sergio5990.servlet.example.dao.DataSource;
 import com.github.sergio5990.servlet.example.dao.impl.DefaultAuthUserDao;
 import com.github.sergio5990.servlet.example.model.AuthUser;
 import com.github.sergio5990.servlet.example.service.SecurityService;

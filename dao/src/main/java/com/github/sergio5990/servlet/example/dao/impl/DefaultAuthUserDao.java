@@ -1,13 +1,20 @@
 package com.github.sergio5990.servlet.example.dao.impl;
 
 import com.github.sergio5990.servlet.example.dao.AuthUserDao;
-import com.github.sergio5990.servlet.example.dao.DataSource;
+import com.github.sergio5990.servlet.example.dao.HibernateUtil;
+import com.github.sergio5990.servlet.example.dao.converter.AuthUserConverter;
+import com.github.sergio5990.servlet.example.dao.entity.AuthUserEntity;
 import com.github.sergio5990.servlet.example.model.AuthUser;
-import com.github.sergio5990.servlet.example.model.Role;
+import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.sql.*;
+import javax.persistence.NoResultException;
+
 
 public class DefaultAuthUserDao implements AuthUserDao {
+    private static final Logger log = LoggerFactory.getLogger(DefaultAuthUserDao.class);
+
 
     private static class SingletonHolder {
         static final AuthUserDao HOLDER_INSTANCE = new DefaultAuthUserDao();
@@ -19,41 +26,25 @@ public class DefaultAuthUserDao implements AuthUserDao {
 
     @Override
     public AuthUser getByLogin(String login) {
-        try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("select * from auth_user where login = ?")) {
-            ps.setString(1, login);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return new AuthUser(
-                            rs.getLong("id"),
-                            rs.getString("login"),
-                            rs.getString("password"),
-                            Role.valueOf(rs.getString("role")),
-                            rs.getLong("user_id"));
-                } else {
-                    return null;
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        AuthUserEntity authUser;
+        try {
+            authUser = (AuthUserEntity) HibernateUtil.getSession().createQuery("from AuthUserEntity au where au.login = :login")
+                    .setParameter("login", login)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            log.info("user not found by login{}", login);
+            authUser = null;
         }
+        return AuthUserConverter.toDto(authUser);
     }
 
     @Override
-    public long saveAuthUser(AuthUser user) {
-        final String sql = "insert into auth_user(login, password, role, user_id) values(?,?,?,?)";
-        try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, user.getLogin());
-            ps.setString(2, user.getPassword());
-            ps.setString(3, user.getRole().name());
-            ps.setLong(4, user.getUserId());
-            ps.executeUpdate();
-            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
-                return generatedKeys.getLong(1);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public long saveAuthUser(AuthUser authUser) {
+        AuthUserEntity authUserEntity = AuthUserConverter.toEntity(authUser);
+        final Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+        session.save(authUserEntity);
+        session.getTransaction().commit();
+        return authUserEntity.getId();
     }
 }

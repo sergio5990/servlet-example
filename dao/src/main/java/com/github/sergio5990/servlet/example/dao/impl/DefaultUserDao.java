@@ -1,12 +1,18 @@
 package com.github.sergio5990.servlet.example.dao.impl;
 
-import com.github.sergio5990.servlet.example.dao.DataSource;
+import com.github.sergio5990.servlet.example.dao.HibernateUtil;
 import com.github.sergio5990.servlet.example.dao.UserDao;
+import com.github.sergio5990.servlet.example.dao.converter.AuthUserConverter;
+import com.github.sergio5990.servlet.example.dao.converter.UserConverter;
+import com.github.sergio5990.servlet.example.dao.entity.AuthUserEntity;
+import com.github.sergio5990.servlet.example.dao.entity.UserEntity;
 import com.github.sergio5990.servlet.example.model.User;
+import org.hibernate.Session;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DefaultUserDao implements UserDao {
 
@@ -21,41 +27,20 @@ public class DefaultUserDao implements UserDao {
 
     @Override
     public List<User> getStudents() {
-        try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("select * from user");
-             ResultSet rs = ps.executeQuery()) {
-            final ArrayList<User> result = new ArrayList<>();
-            while (rs.next()) {
-                final User user = new User(
-                        rs.getLong("id"),
-                        rs.getString("first_name"),
-                        rs.getString("last_name"),
-                        rs.getString("phone"),
-                        rs.getString("email"));
-                result.add(user);
-            }
-            return result;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        final List<UserEntity> authUser = HibernateUtil.getSession().createQuery("from UserEntity")
+                .list();
+        return authUser.stream()
+                .map(UserConverter::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Long save(User user) {
-        final String sql = "insert into user(first_name, last_name, phone, email) values(?,?,?,?)";
-        try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, user.getFirstName());
-            ps.setString(2, user.getLastName());
-            ps.setString(3, user.getPhone());
-            ps.setString(4, user.getEmail());
-            ps.executeUpdate();
-            try (ResultSet keys = ps.getGeneratedKeys()) {
-                keys.next();
-                return keys.getLong(1);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        UserEntity userEntity = UserConverter.toEntity(user);
+        final Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+        session.save(userEntity);
+        session.getTransaction().commit();
+        return userEntity.getId();
     }
 }
