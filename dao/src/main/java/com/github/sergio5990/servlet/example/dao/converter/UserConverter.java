@@ -17,7 +17,7 @@ public class UserConverter {
         return userEntity;
     }
 
-    public static User toDto(UserEntity userEntity) {
+    public static User fromEntity(UserEntity userEntity) {
         if (userEntity == null) {
             return null;
         }

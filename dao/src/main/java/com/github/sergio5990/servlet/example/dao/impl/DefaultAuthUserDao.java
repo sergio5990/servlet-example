@@ -35,7 +35,7 @@ public class DefaultAuthUserDao implements AuthUserDao {
             log.info("user not found by login{}", login);
             authUser = null;
         }
-        return AuthUserConverter.toDto(authUser);
+        return AuthUserConverter.fromEntity(authUser);
     }
 
     @Override

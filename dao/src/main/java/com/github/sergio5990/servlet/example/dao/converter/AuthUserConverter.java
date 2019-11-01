@@ -4,7 +4,7 @@ import com.github.sergio5990.servlet.example.dao.entity.AuthUserEntity;
 import com.github.sergio5990.servlet.example.model.AuthUser;
 
 public class AuthUserConverter {
-    public static AuthUser toDto(AuthUserEntity authUser) {
+    public static AuthUser fromEntity(AuthUserEntity authUser) {
         if (authUser == null) {
             return null;
         }
