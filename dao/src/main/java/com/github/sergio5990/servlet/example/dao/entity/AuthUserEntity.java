@@ -8,19 +8,17 @@ import javax.persistence.*;
 @Table(name = "auth_user")
 public class AuthUserEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String login;
     private String password;
-    @Enumerated(EnumType.STRING)
     private Role role;
-    @Column(name = "user_id")
     private Long userId;
 
     public AuthUserEntity() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -45,6 +43,7 @@ public class AuthUserEntity {
         this.password = password;
     }
 
+    @Enumerated(EnumType.STRING)
     public Role getRole() {
         return role;
     }
@@ -53,6 +52,7 @@ public class AuthUserEntity {
         this.role = role;
     }
 
+    @Column(name = "user_id")
     public Long getUserId() {
         return userId;
     }

@@ -13,7 +13,7 @@ public class AuthUserConverter {
                 authUser.getLogin(),
                 authUser.getPassword(),
                 authUser.getRole(),
-                authUser.getId());
+                authUser.getUserId());
     }
 
     public static AuthUserEntity toEntity(AuthUser authUser) {
