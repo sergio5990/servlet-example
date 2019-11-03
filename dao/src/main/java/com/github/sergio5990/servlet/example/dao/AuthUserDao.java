@@ -7,4 +7,6 @@ public interface AuthUserDao {
     AuthUser getByLogin(String login);
 
     long saveAuthUser(AuthUser user);
+
+    void updatePassword(Long authUserId, String newPassword);
 }

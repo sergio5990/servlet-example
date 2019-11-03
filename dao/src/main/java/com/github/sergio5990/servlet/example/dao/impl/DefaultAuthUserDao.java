@@ -47,4 +47,15 @@ public class DefaultAuthUserDao implements AuthUserDao {
         session.getTransaction().commit();
         return authUserEntity.getId();
     }
+
+    @Override
+    public void updatePassword(Long authUserId, String newPassword) {
+        final Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+        session.createQuery("update AuthUserEntity set password= :password where id = :authUserId")
+                .setParameter("password", newPassword)
+                .setParameter("authUserId", authUserId)
+                .executeUpdate();
+        session.getTransaction().commit();
+    }
 }

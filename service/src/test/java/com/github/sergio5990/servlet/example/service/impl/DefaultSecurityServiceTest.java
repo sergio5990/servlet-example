@@ -11,7 +11,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -47,5 +48,15 @@ class DefaultSecurityServiceTest {
         when(dao.getByLogin("admin")).thenReturn(new AuthUser(null, "admin", "pass", null, null));
         AuthUser login = service.login("admin", "pass2");
         assertNull(login);
+    }
+
+
+    @Test
+    void update() {
+        doNothing().when(dao).updatePassword(any(), any());
+
+        service.updatePassword(5L, "4321");
+
+        verify(dao).updatePassword(5L, "4321");
     }
 }

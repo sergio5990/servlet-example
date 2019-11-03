@@ -27,8 +27,6 @@ public class DefaultUserService implements UserService {
         return DefaultUserDao.getInstance().save(user);
     }
 
-    @Override
-    public void saveAuthUser(AuthUser authUser) {
 
-    }
+
 }

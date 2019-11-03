@@ -40,4 +40,14 @@ class DefaultAuthUserDaoTest {
         assertEquals(userEntity.getPassword(), authUser.getPassword());
     }
 
+    @Test
+    void update() {
+        final AuthUser authUser = new AuthUser(null, "Сергей3", "1234", Role.STUDENT, null);
+        final long authUserId = dao.saveAuthUser(authUser);
+
+        dao.updatePassword(authUserId, "4321");
+
+        final AuthUser user = dao.getByLogin("Сергей3");
+        assertEquals(user.getPassword(),"4321");
+    }
 }

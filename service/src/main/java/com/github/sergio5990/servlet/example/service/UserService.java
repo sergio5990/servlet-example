@@ -9,6 +9,4 @@ public interface UserService {
     List<User> getStudents();
 
     Long saveStudent(User user);
-
-    void saveAuthUser(AuthUser authUser);
 }

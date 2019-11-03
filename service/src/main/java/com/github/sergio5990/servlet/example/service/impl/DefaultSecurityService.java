@@ -10,6 +10,7 @@ public class DefaultSecurityService implements SecurityService {
     private static class SingletonHolder {
         static final SecurityService HOLDER_INSTANCE = new DefaultSecurityService();
     }
+
     public static SecurityService getInstance() {
         return DefaultSecurityService.SingletonHolder.HOLDER_INSTANCE;
     }
@@ -25,5 +26,10 @@ public class DefaultSecurityService implements SecurityService {
             return user;
         }
         return null;
+    }
+
+    @Override
+    public void updatePassword(Long authUserId, String newPassword) {
+        authUserDao.updatePassword(authUserId, newPassword);
     }
 }
