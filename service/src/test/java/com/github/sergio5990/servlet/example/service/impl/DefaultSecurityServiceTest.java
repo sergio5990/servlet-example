@@ -57,6 +57,6 @@ class DefaultSecurityServiceTest {
 
         service.updatePassword(5L, "4321");
 
-        verify(dao).updatePassword(5L, "4321");
+        verify(dao, times(1)).updatePassword(5L, "4321");
     }
 }

@@ -4,29 +4,23 @@ import com.github.sergio5990.servlet.example.dao.impl.DefaultUserDao;
 import com.github.sergio5990.servlet.example.model.AuthUser;
 import com.github.sergio5990.servlet.example.model.User;
 import com.github.sergio5990.servlet.example.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DefaultUserService implements UserService {
-
-    private static class SingletonHolder {
-        static final UserService HOLDER_INSTANCE = new DefaultUserService();
-    }
-
-    public static UserService getInstance() {
-        return DefaultUserService.SingletonHolder.HOLDER_INSTANCE;
-    }
+    @Autowired
+    private DefaultUserDao defaultUserDao;
 
     @Override
     public List<User> getStudents() {
-        return DefaultUserDao.getInstance().getStudents();
+        return defaultUserDao.getStudents();
     }
 
     @Override
     public Long saveStudent(User user) {
-        return DefaultUserDao.getInstance().save(user);
+        return defaultUserDao.save(user);
     }
-
-
-
 }

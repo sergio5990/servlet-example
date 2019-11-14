@@ -4,18 +4,14 @@ import com.github.sergio5990.servlet.example.dao.AuthUserDao;
 import com.github.sergio5990.servlet.example.dao.impl.DefaultAuthUserDao;
 import com.github.sergio5990.servlet.example.model.AuthUser;
 import com.github.sergio5990.servlet.example.service.SecurityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultSecurityService implements SecurityService {
 
-    private static class SingletonHolder {
-        static final SecurityService HOLDER_INSTANCE = new DefaultSecurityService();
-    }
-
-    public static SecurityService getInstance() {
-        return DefaultSecurityService.SingletonHolder.HOLDER_INSTANCE;
-    }
-
-    private AuthUserDao authUserDao = DefaultAuthUserDao.getInstance();
+    @Autowired
+    private AuthUserDao authUserDao;
 
     public AuthUser login(String login, String password) {
         AuthUser user = authUserDao.getByLogin(login);

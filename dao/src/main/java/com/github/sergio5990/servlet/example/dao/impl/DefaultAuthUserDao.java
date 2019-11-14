@@ -8,21 +8,13 @@ import com.github.sergio5990.servlet.example.model.AuthUser;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
 
-
+@Repository
 public class DefaultAuthUserDao implements AuthUserDao {
     private static final Logger log = LoggerFactory.getLogger(DefaultAuthUserDao.class);
-
-
-    private static class SingletonHolder {
-        static final AuthUserDao HOLDER_INSTANCE = new DefaultAuthUserDao();
-    }
-
-    public static AuthUserDao getInstance() {
-        return DefaultAuthUserDao.SingletonHolder.HOLDER_INSTANCE;
-    }
 
     @Override
     public AuthUser getByLogin(String login) {

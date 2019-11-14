@@ -6,20 +6,13 @@ import com.github.sergio5990.servlet.example.dao.converter.UserConverter;
 import com.github.sergio5990.servlet.example.dao.entity.UserEntity;
 import com.github.sergio5990.servlet.example.model.User;
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Repository
 public class DefaultUserDao implements UserDao {
-
-    private static class SingletonHolder {
-        static final UserDao HOLDER_INSTANCE = new DefaultUserDao();
-    }
-
-    public static UserDao getInstance() {
-        return DefaultUserDao.SingletonHolder.HOLDER_INSTANCE;
-    }
-
 
     @Override
     public List<User> getStudents() {
