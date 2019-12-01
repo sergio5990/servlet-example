@@ -1,7 +1,5 @@
 package com.github.sergio5990.servlet.example.web.filter;
 
-import com.github.sergio5990.servlet.example.web.WebUtils;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +13,8 @@ public class AuthFilter implements Filter {
         HttpServletRequest rq = (HttpServletRequest) servletRequest;
         Object authUser = rq.getSession().getAttribute("authUser");
         if (authUser == null) {
-            WebUtils.forward("login", rq, ((HttpServletResponse) servletResponse));
+            HttpServletResponse rs = (HttpServletResponse) servletResponse;
+            rs.sendRedirect(rq.getContextPath() + "/login");
             return;
         }
         filterChain.doFilter(rq, servletResponse);

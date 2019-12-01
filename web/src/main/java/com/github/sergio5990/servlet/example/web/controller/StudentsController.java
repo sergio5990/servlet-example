@@ -29,7 +29,7 @@ public class StudentsController {
     public String get(HttpServletRequest rq) {
         List<User> students = userService.getStudents();
         rq.setAttribute("students", students);
-        return "/student";
+        return "student";
     }
 
     @PostMapping()

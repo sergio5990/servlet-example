@@ -1,11 +1,7 @@
 package com.github.sergio5990.servlet.example.web.filter;
 
-import com.github.sergio5990.servlet.example.web.WebUtils;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebFilter("/*")
