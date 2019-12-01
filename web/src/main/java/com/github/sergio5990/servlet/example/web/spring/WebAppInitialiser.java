@@ -1,5 +1,7 @@
 package com.github.sergio5990.servlet.example.web.spring;
 
+import com.github.sergio5990.servlet.example.dao.config.DaoConfig;
+import com.github.sergio5990.servlet.example.service.config.ServiceConfig;
 import com.github.sergio5990.servlet.example.web.spring.RootConfig;
 import com.github.sergio5990.servlet.example.web.spring.WebConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -13,7 +15,7 @@ public class WebAppInitialiser extends AbstractAnnotationConfigDispatcherServlet
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{WebConfig.class};
+        return new Class[]{WebConfig.class, ServiceConfig.class, DaoConfig.class};
     }
 
     @Override

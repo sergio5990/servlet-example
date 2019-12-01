@@ -18,6 +18,9 @@
         <Logger name="com.github.sergio5990" level="debug" additivity="true">
             <appender-ref ref="fileLogger" level="debug" />
         </Logger>
+        <Logger name="org.springframework" level="debug" additivity="true">
+            <appender-ref ref="console" level="debug" />
+        </Logger>
         <Root level="INFO" additivity="false">
             <appender-ref ref="console" />
         </Root>

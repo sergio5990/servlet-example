@@ -1,18 +1,19 @@
 package com.github.sergio5990.servlet.example.service.impl;
 
 import com.github.sergio5990.servlet.example.dao.AuthUserDao;
-import com.github.sergio5990.servlet.example.dao.impl.DefaultAuthUserDao;
 import com.github.sergio5990.servlet.example.model.AuthUser;
 import com.github.sergio5990.servlet.example.service.SecurityService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service
 public class DefaultSecurityService implements SecurityService {
 
-    @Autowired
-    private AuthUserDao authUserDao;
+    private final AuthUserDao authUserDao;
 
+    public DefaultSecurityService(AuthUserDao authUserDao) {
+        this.authUserDao = authUserDao;
+    }
+
+    @Transactional
     public AuthUser login(String login, String password) {
         AuthUser user = authUserDao.getByLogin(login);
         if (user == null) {
@@ -25,6 +26,7 @@ public class DefaultSecurityService implements SecurityService {
     }
 
     @Override
+    @Transactional
     public void updatePassword(Long authUserId, String newPassword) {
         authUserDao.updatePassword(authUserId, newPassword);
     }
