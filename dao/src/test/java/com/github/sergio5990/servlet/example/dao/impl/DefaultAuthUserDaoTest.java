@@ -11,8 +11,10 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,8 +25,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class DefaultAuthUserDaoTest {
     @Autowired
     private AuthUserDao dao;
-    @Autowired
-    SessionFactory sessionFactory;
 
     @Test
     void getByLoginExists() {
@@ -61,7 +61,6 @@ class DefaultAuthUserDaoTest {
         final long authUserId = dao.saveAuthUser(authUser);
 
         dao.updatePassword(authUserId, "4321");
-        sessionFactory.getCurrentSession().flush();
 
         final AuthUser user = dao.getByLogin("Сергей3");
         assertEquals(user.getPassword(), "4321");

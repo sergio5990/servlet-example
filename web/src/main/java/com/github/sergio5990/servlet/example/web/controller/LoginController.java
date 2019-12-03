@@ -24,7 +24,7 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String doGet(HttpSession session) {
+    public String login(HttpSession session) {
         Object authUser = session.getAttribute("authUser");
         if (authUser == null) {
             return "login";
@@ -33,7 +33,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String doPost(HttpServletRequest rq) {
+    public String login(HttpServletRequest rq) {
         String login = rq.getParameter("login");
         String password = rq.getParameter("password");
         AuthUser user = securityService.login(login, password);
