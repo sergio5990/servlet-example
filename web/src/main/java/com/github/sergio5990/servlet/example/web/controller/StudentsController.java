@@ -6,6 +6,8 @@ import com.github.sergio5990.servlet.example.web.rq.CreateStudentRq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,14 +28,15 @@ public class StudentsController {
     }
 
     @GetMapping()
-    public String get(HttpServletRequest rq) {
+    public String get(HttpServletRequest rq, UsernamePasswordAuthenticationToken authentication) {
         List<User> students = userService.getStudents();
         rq.setAttribute("students", students);
         return "student";
     }
 
     @PostMapping()
-    public String create(CreateStudentRq rq) {
+    @Secured("ROLE_PROFESSOR")
+    public String create(CreateStudentRq rq, UsernamePasswordAuthenticationToken authentication) {
         String firstName = rq.getFirstName();
         String lastName = rq.getLastName();
         String phone = rq.getPhone();
