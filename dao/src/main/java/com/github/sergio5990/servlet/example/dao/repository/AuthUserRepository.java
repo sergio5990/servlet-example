@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface AuthUserRepository extends JpaRepository<AuthUserEntity, Long> {
     Optional<AuthUserEntity> findByLogin(String login);
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("update AuthUserEntity set password= :password where id = :authUserId")
     void updatePassword(@Param("authUserId") Long authUserId, @Param("password") String password);
 }

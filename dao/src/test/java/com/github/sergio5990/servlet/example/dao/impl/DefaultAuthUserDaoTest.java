@@ -55,7 +55,6 @@ class DefaultAuthUserDaoTest {
     }
 
     @Test
-    @Disabled
     void update() {
         final AuthUser authUser = new AuthUser(null, "Сергей3", "1234", Role.STUDENT, null);
         final long authUserId = dao.saveAuthUser(authUser);
