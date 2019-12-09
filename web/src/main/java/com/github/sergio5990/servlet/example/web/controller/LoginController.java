@@ -33,9 +33,9 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String login(HttpSession session) {
-        Object authUser = session.getAttribute("authUser");
-        if (authUser == null) {
+    public String login() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
             return "login";
         }
         return "redirect:/student";
