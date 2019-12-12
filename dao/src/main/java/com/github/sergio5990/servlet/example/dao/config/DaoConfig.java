@@ -6,12 +6,14 @@ import com.github.sergio5990.servlet.example.dao.impl.DefaultAuthUserDao;
 import com.github.sergio5990.servlet.example.dao.impl.DefaultUserDao;
 import com.github.sergio5990.servlet.example.dao.repository.AuthUserRepository;
 import com.github.sergio5990.servlet.example.dao.repository.UserRepository;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.github.sergio5990.servlet.example.dao.repository")
+@EntityScan("com.github.sergio5990.servlet.example.dao.entity")
 public class DaoConfig {
 
     private final AuthUserRepository authUserRepository;
