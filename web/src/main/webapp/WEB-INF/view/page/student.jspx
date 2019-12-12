@@ -27,7 +27,7 @@
     </c:if>
 
 
-    <sec:authorize access="hasRole('ROLE_PROFESSOR')">
+    <sec:authorize  access="hasAuthority('ROLE_PROFESSOR')">
         <h3>Добавить студента </h3>
         <form action="${pageContext.request.contextPath}/student" method="post">
             <label for="firstName">имя</label>

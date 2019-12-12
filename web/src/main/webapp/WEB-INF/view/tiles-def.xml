@@ -3,18 +3,18 @@
         "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
         "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
-    <definition name="default" template="templates/view/layouts/default.jspx">
-        <put-attribute name="header" value="view/common/header.jspx"/>
+    <definition name="default" template="/WEB-INF/view/layouts/default.jspx">
+        <put-attribute name="header" value="/WEB-INF/view/common/header.jspx"/>
         <put-attribute name="body" value=""/>
-        <put-attribute name="footer" value="view/common/footer.jspx"/>
+        <put-attribute name="footer" value="/WEB-INF/view/common/footer.jspx"/>
     </definition>
 
     <definition name="login" extends="default">
-        <put-attribute name="body" value="view/page/login.jspx"/>
+        <put-attribute name="body" value="/WEB-INF/view/page/login.jspx"/>
     </definition>
 
     <definition name="student" extends="default">
-        <put-attribute name="body" value="view/page/student.jspx"/>
+        <put-attribute name="body" value="/WEB-INF/view/page/student.jspx"/>
     </definition>
 
 </tiles-definitions>

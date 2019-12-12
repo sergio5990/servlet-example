@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.sergio5990.servlet.example</groupId>
     <artifactId>root</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -20,10 +20,10 @@
     </properties>
 
     <modules>
+        <module>model</module>
         <module>dao</module>
         <module>service</module>
         <module>web</module>
-        <module>model</module>
     </modules>
 
     <dependencies>
@@ -70,5 +70,7 @@
             <artifactId>jstl</artifactId>
         </dependency>
     </dependencies>
+
+
 
 </project>

@@ -5,8 +5,6 @@ import com.github.sergio5990.servlet.example.service.UserService;
 import com.github.sergio5990.servlet.example.web.rq.CreateStudentRq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -36,7 +34,7 @@ public class StudentsController {
     }
 
     @PostMapping()
-    @Secured("ROLE_PROFESSOR")
+    @PreAuthorize("hasAuthority('ROLE_PROFESSOR')")
     public String create(CreateStudentRq rq, UsernamePasswordAuthenticationToken authentication) {
         String firstName = rq.getFirstName();
         String lastName = rq.getLastName();

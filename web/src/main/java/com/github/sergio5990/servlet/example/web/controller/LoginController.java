@@ -1,6 +1,7 @@
 package com.github.sergio5990.servlet.example.web.controller;
 
 import com.github.sergio5990.servlet.example.model.AuthUser;
+import com.github.sergio5990.servlet.example.model.Role;
 import com.github.sergio5990.servlet.example.service.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,14 +48,21 @@ public class LoginController {
             return "login";
         }
         log.info("user {} logged", user.getLogin());
-        Authentication auth = new UsernamePasswordAuthenticationToken(user, null, getAuthorities());
+        Authentication auth = new UsernamePasswordAuthenticationToken(user, null, getAuthorities(user.getRole()));
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         return "redirect:/student";
     }
 
-    private List<GrantedAuthority> getAuthorities() {
-        return Arrays.asList((GrantedAuthority) () -> "ROLE_USER",
-                (GrantedAuthority) () -> "ROLE_PROFESSOR");
+    private List<GrantedAuthority> getAuthorities(Role role) {
+        switch (role) {
+            case STUDENT:
+                return Arrays.asList((GrantedAuthority) () -> "ROLE_USER");
+            case PROFESSOR:
+                return Arrays.asList((GrantedAuthority) () -> "ROLE_USER",
+                        (GrantedAuthority) () -> "ROLE_PROFESSOR");
+            default:
+                throw new RuntimeException("wrong role");
+        }
     }
 }

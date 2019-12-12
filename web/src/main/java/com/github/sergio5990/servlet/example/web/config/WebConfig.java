@@ -50,7 +50,7 @@ public class WebConfig {
     @Bean
     public TilesConfigurer tilesConfigurer(){
         final TilesConfigurer tilesConfigurer = new TilesConfigurer();
-        tilesConfigurer.setDefinitions("/view/tiles-def.xml");
+        tilesConfigurer.setDefinitions("/WEB-INF/view/tiles-def.xml");
         return tilesConfigurer;
     }
 
