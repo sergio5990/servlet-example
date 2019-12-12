@@ -2,19 +2,13 @@ package com.github.sergio5990.servlet.example.dao.impl;
 
 import com.github.sergio5990.servlet.example.dao.AuthUserDao;
 import com.github.sergio5990.servlet.example.dao.config.DaoConfig;
-import com.github.sergio5990.servlet.example.dao.entity.AuthUserEntity;
 import com.github.sergio5990.servlet.example.model.AuthUser;
 import com.github.sergio5990.servlet.example.model.Role;
-import net.sf.ehcache.hibernate.HibernateUtil;
-import org.hibernate.SessionFactory;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;

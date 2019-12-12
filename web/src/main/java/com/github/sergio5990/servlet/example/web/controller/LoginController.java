@@ -14,12 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-
-import static java.util.Collections.singletonList;
 
 @Controller
 @RequestMapping
@@ -35,7 +31,7 @@ public class LoginController {
     @GetMapping("/login")
     public String login() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {
+        if ("anonymousUser".equals(authentication.getPrincipal())) {
             return "login";
         }
         return "redirect:/student";

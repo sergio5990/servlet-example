@@ -1,15 +1,12 @@
-package com.github.sergio5990.servlet.example.web.spring;
+package com.github.sergio5990.servlet.example.web.config;
 
 import com.github.sergio5990.servlet.example.service.config.ServiceConfig;
 import com.github.sergio5990.servlet.example.web.controller.LoginController;
 import com.github.sergio5990.servlet.example.web.controller.LogoutController;
 import com.github.sergio5990.servlet.example.web.controller.StudentsController;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
@@ -40,7 +37,7 @@ public class WebConfig {
     }
 
     @Bean
-    public UrlBasedViewResolver tilesViewResolver(){
+    public UrlBasedViewResolver viewResolver(){
         UrlBasedViewResolver resolver = new UrlBasedViewResolver();
         resolver.setViewClass(TilesView.class);
         return resolver;
@@ -49,7 +46,7 @@ public class WebConfig {
     @Bean
     public TilesConfigurer tilesConfigurer(){
         final TilesConfigurer tilesConfigurer = new TilesConfigurer();
-        tilesConfigurer.setDefinitions("/WEB-INF/tiles.xml");
+        tilesConfigurer.setDefinitions("/view/tiles-def.xml");
         return tilesConfigurer;
     }
 }

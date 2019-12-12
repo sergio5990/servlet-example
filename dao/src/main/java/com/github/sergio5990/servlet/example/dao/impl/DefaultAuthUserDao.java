@@ -5,17 +5,8 @@ import com.github.sergio5990.servlet.example.dao.converter.AuthUserConverter;
 import com.github.sergio5990.servlet.example.dao.entity.AuthUserEntity;
 import com.github.sergio5990.servlet.example.dao.repository.AuthUserRepository;
 import com.github.sergio5990.servlet.example.model.AuthUser;
-import net.sf.ehcache.hibernate.HibernateUtil;
-import org.hibernate.FlushMode;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.NoResultException;
 
 public class DefaultAuthUserDao implements AuthUserDao {
     private static final Logger log = LoggerFactory.getLogger(DefaultAuthUserDao.class);

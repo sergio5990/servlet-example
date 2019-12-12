@@ -5,10 +5,6 @@ import com.github.sergio5990.servlet.example.dao.converter.UserConverter;
 import com.github.sergio5990.servlet.example.dao.entity.UserEntity;
 import com.github.sergio5990.servlet.example.dao.repository.UserRepository;
 import com.github.sergio5990.servlet.example.model.User;
-import net.sf.ehcache.hibernate.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.stream.Collectors;
