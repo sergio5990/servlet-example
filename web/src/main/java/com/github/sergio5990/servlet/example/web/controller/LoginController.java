@@ -31,7 +31,7 @@ public class LoginController {
     @GetMapping("/login")
     public String login() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if ("anonymousUser".equals(authentication.getPrincipal())) {
+        if (authentication == null || "anonymousUser".equals(authentication.getPrincipal())) {
             return "login";
         }
         return "redirect:/student";
