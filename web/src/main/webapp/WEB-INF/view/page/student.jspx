@@ -5,7 +5,7 @@
           xmlns:spring="http://www.springframework.org/tags"
           version="2.0">
 
-    <a href="${pageContext.request.contextPath}/logout">logout</a>
+    <a href="${pageContext.request.contextPath}/logout-user">logout</a>
     <h3>Cтуденты</h3>
     <c:if test="${students != null}">
         <table>
