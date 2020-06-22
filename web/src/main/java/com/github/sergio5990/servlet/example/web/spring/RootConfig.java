@@ -20,5 +20,8 @@ public class RootConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+            registry.addResourceHandler().addResourceLocations();
     }
 }
